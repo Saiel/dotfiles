@@ -1,0 +1,13 @@
+source_dir: files
+targets:
+  kitty.conf:
+    dir: $HOME/.conf/kitty
+  ssh.conf:
+    dir: $HOME/.ssh
+    filename: config
+  vimrc:
+    dir: $HOME
+    filename: .vimrc
+  zshrc:
+    dir: $HOME
+    filename: .zshrc
