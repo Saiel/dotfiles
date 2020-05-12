@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """Simple script for installing dotfiles
 
 Usage:
