@@ -26,9 +26,9 @@ Also feel free to use this script in your repository.
 
 * `source_dir` (required) - directory, where dotfiles stored.
 * `targets` (required)
-  * `<filename>` - name of dotfile, which wanted to copy.
-    * `dir` (required) - installation directory for file.
-    * `filename` (optional) - destination file name. If not provided, uses original file name.
+  * `<filename>` - name of dotfile or directory (target), which is wanted to copy.
+    * `dir` (required) - installation directory for target.
+    * `filename` (optional) - destination target name. If not provided, uses original name.
 
 ## Feedback
 

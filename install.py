@@ -85,10 +85,14 @@ if __name__ == "__main__":
 
     for target, parameters in targets[YAML_TARGETS_FIELD].items():
         if is_target_valid(target, parameters, SRC_DIR):
+            src = SRC_DIR / target
             dest = make_dest_path(parameters, target)
             if not dest.parent.is_dir():
                 os.makedirs(dest.parent, 0o666)
-            shutil.copy(SRC_DIR / target, dest)
+            if src.is_dir():
+                shutil.copytree(src, dest)
+            elif src.is_file():
+                shutil.copy(src, dest)
         else:
             print(f"Target '{target}' is not proccessed")
 
