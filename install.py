@@ -59,16 +59,6 @@ def is_target_valid(filename: str, params: TargetsParams, src: Path) -> bool:
     return True
 
 
-def mkdir_recursive(directory: Path):
-    """Makes directory with recursion
-
-    """
-    if directory.is_dir():
-        return
-    mkdir_recursive(directory.parent)
-    directory.mkdir()
-
-
 def make_dest_path(params: TargetsParams, name: str) -> Path:
     """Makes destination path from target paramters
 
@@ -97,7 +87,7 @@ if __name__ == "__main__":
         if is_target_valid(target, parameters, SRC_DIR):
             dest = make_dest_path(parameters, target)
             if not dest.parent.is_dir():
-                mkdir_recursive(dest.parent)
+                os.makedirs(dest.parent, 0o666)
             shutil.copy(SRC_DIR / target, dest)
         else:
             print(f"Target '{target}' is not proccessed")
