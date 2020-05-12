@@ -1,7 +1,7 @@
 source_dir: files
 targets:
   kitty.conf:
-    dir: $HOME/.conf/kitty
+    dir: $HOME/.config/kitty
   ssh.conf:
     dir: $HOME/.ssh
     filename: config
