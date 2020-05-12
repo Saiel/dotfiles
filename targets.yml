@@ -11,3 +11,4 @@ targets:
   zshrc:
     dir: $HOME
     filename: .zshrc
+

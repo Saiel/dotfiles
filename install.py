@@ -47,7 +47,7 @@ def is_target_valid(filename: str, params: TargetsParams, src: Path) -> bool:
     """Checks whether target in yaml file valid
 
     """
-    if not src.joinpath(filename).is_file():
+    if not src.joinpath(filename).exists():
         LOGGER.warning("WARNING: File is not exist: %s", filename)
         return False
     if "dir" not in params:
@@ -88,7 +88,7 @@ if __name__ == "__main__":
             src = SRC_DIR / target
             dest = make_dest_path(parameters, target)
             if not dest.parent.is_dir():
-                os.makedirs(dest.parent, 0o666)
+                os.makedirs(dest.parent)
             if src.is_dir():
                 shutil.copytree(src, dest)
             elif src.is_file():
