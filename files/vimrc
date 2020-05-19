@@ -1,19 +1,20 @@
+" vim:foldmethod=marker
 " #################################################
 " #   _    ___              _____       _      __ #
 " #  | |  / (_)___ ___     / ___/____ _(_)__  / / #
 " #  | | / / / __ `__ \    \__ \/ __ `/ / _ \/ /  #
 " #  | |/ / / / / / / /   ___/ / /_/ / /  __/ /   #
 " #  |___/_/_/ /_/ /_/   /____/\__,_/_/\___/_/    #
+" #                                               #
 " #################################################
 
 set nocompatible
+
+": Vundle (plugins) {{{
+
 filetype off
-
 set rtp+=~/.vim/bundle/vundle/
-
 call vundle#rc()
-
-filetype plugin indent on
 
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -23,12 +24,21 @@ Plugin 'leafgarland/typescript-vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
+filetype plugin indent on
+
+" }}}
+
+": Airline settings {{{
+
 let g:airline_solarized_bg = 'dark'
 let g:airline_solarized_dark_inactive_background = 1
 let g:airline_powerline_fonts = 1
+autocmd vimenter * AirlineTheme raven
 
+" }}}
+
+": GEneral editor settings {{{
 set number
-"colorscheme default
 
 set shiftwidth=4
 set softtabstop=4
@@ -46,6 +56,9 @@ set visualbell
 set t_vb=
 
 set laststatus=2
+set mouse=a
+
+set conceallevel=2
 
 if version >= 700
     set history=64
@@ -56,18 +69,21 @@ if version >= 700
     set undoreload=10000
 endif
 
-augroup vimrc-incsearch-highlight
-    autocmd!
-    autocmd CmdlineEnter /,\? :set hlsearch
-    autocmd CmdlineLeave /,\? :set nohlsearch
-augroup END
+" }}}
 
-autocmd vimenter * AirlineTheme raven
+": Keybidings {{{
+
 nmap <C-n> :NERDTreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 
-set conceallevel=2
+" }}}
 
+": Colorscheme {{{
+
+colorscheme default
+set background=dark
 highlight Folded ctermfg=0
 highlight Folded ctermbg=6
+
+" }}}
 

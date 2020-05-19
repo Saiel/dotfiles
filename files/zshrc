@@ -1,3 +1,4 @@
+# vim:foldmethod=marker
 #               __       _____       _      __
 #   ____  _____/ /_     / ___/____ _(_)__  / /
 #  /_  / / ___/ __ \    \__ \/ __ `/ / _ \/ /
@@ -7,6 +8,7 @@
 
 export PATH=$HOME/.local/bin:$PATH
 
+#: Zsh settings {{{
 # Path to oh-my-zsh installation.
 export ZSH="/home/saiel/.oh-my-zsh"
 
@@ -37,32 +39,58 @@ plugins=(git
          pip
          sudo
          zsh-autosuggestions
+
+         zsh-syntax-highlighting # must be last
          )
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+# }}}
 
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
-alias kittyconfig="vim ~/.config/kitty/kitty.conf"
-alias vimconfig="vim ~/.vimrc"
-alias sshconfig="vim ~/.ssh/config"
+#: User settings {{{
+
+export EDITOR=nvim
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+# }}}
+
+#: Aliases {{{
+
+alias zshconfig="$EDITOR ~/.zshrc"
+alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
+alias kittyconfig="$EDITOR ~/.config/kitty/kitty.conf"
+alias vimconfig="$EDITOR ~/.vimrc"
+alias sshconfig="$EDITOR ~/.ssh/config"
 alias configheader="figlet -f slant"
+alias vim="nvim"
 
-# Autosuggest settings
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245,bg=#222222'
-export ZSH_AUTOSUGGEST_HISTORY_IGNORE='?(#c10,)'
+# }}}
+
+#: Autosuggest settings {{{
+
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=6,bg=0'
+export ZSH_AUTOSUGGEST_HISTORY_IGNORE='?(#c50,)'
 export ZSH_AUTOSUGGEST_USE_ASYNC='True'
-source /home/saiel/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-prompt_context() {}
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=40
 
+# }}}
+
+#: Autocompletion {{{
 autoload -Uz compinit
 compinit
-# Completion for kitty {{
+
+#: Completion for kitty {{{
+
 if [[ $TERM == "xterm-kitty" ]]; then
     kitty +complete setup zsh | source /dev/stdin
     # alias cptermi='cptermi(){ infocmp xterm-kitty | ssh $1 tic -x -o \~/.terminfo /dev/stdin; }; cptermi'
     alias kssh="kitty +kitten ssh"
 fi
-# }}
+
+# }}}
+
+# }}}
+
+source /home/saiel/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
