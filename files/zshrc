@@ -6,7 +6,7 @@
 #  /___/____/_/ /_/   /____/\__,_/_/\___/_/
 #
 
-export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/Applications:$HOME/.local/bin:$PATH
 
 #: Zsh settings {{{
 # Path to oh-my-zsh installation.
