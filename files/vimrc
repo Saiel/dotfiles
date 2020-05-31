@@ -23,6 +23,17 @@ Plugin 'majutsushi/tagbar'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'bling/vim-bufferline'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'gcmt/taboo.vim'
+Plugin 'mildred/vim-bufmru'
+Plugin 'mkitt/tabline.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-speeddating'
+Plugin 'glts/vim-magnum'
+Plugin 'glts/vim-radical'
 
 filetype plugin indent on
 
@@ -30,35 +41,45 @@ filetype plugin indent on
 
 ": Airline settings {{{
 
-let g:airline_solarized_bg = 'dark'
-let g:airline_solarized_dark_inactive_background = 1
+"let g:airline_solarized_bg = 'dark'
+"let g:airline_solarized_dark_inactive_background = 1
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 autocmd vimenter * AirlineTheme raven
 
 " }}}
 
-": GEneral editor settings {{{
-set number
+": General editor settings {{{
 
 set shiftwidth=4
 set softtabstop=4
 set smarttab
 set expandtab
+
+set textwidth=88
+
 set wildmenu
+set wildmode=list:longest
+
 set updatetime=0
 
 set ignorecase
 set smartcase
 
-set ruler
-
-set visualbell
-set t_vb=
-
 set laststatus=2
-set mouse=a
+
+set mouse=iv
 
 set conceallevel=2
+
+set foldmethod=indent
+
+set autoread
+
+set hidden
+
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
 
 if version >= 700
     set history=64
@@ -71,19 +92,38 @@ endif
 
 " }}}
 
-": Keybidings {{{
+" Appearance settings {{{
 
-nmap <C-n> :NERDTreeToggle<CR>
-nmap <F8> :TagbarToggle<CR>
+set ruler
+set visualbell
+set number
+set signcolumn=yes
+let g:gitgutter_sign_modified_removed = '~-'
+let g:gitgutter_preview_win_floating = 1
 
 " }}}
 
 ": Colorscheme {{{
 
-colorscheme default
-set background=dark
+"colorscheme default
+"set background=dark
 highlight Folded ctermfg=0
 highlight Folded ctermbg=6
+highlight SignColumn ctermbg=0
+
+" }}}
+
+": Keybidings {{{
+
+nmap <F3> :NERDTreeToggle<CR>
+nmap <F8> :TagbarToggle<CR>
+nmap <A-b> :BufMRUNext<CR>
+nmap <A-B> :BufMRUPrev<CR>
+
+nmap <A-right> :tabnext<CR>
+nmap <A-left> :tabprevious<CR>
+
+map <Leader>cd :cd %:p:h<CR>
 
 " }}}
 
