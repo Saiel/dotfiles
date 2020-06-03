@@ -33,12 +33,15 @@ Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-commentary'
 Plugin 'glts/vim-magnum'
 Plugin 'glts/vim-radical'
+Plugin 'ycm-core/YouCompleteMe'
 
 filetype plugin indent on
 
 " }}}
 
-": Airline settings {{{
+" Plugin settings {{{
+
+" Airline settings {{{
 
 "let g:airline_solarized_bg = 'dark'
 "let g:airline_solarized_dark_inactive_background = 1
@@ -46,9 +49,15 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 autocmd vimenter * AirlineTheme raven
 
+" Airline settings }}}
+
+" Bufferline settigns {{{
+let g:bufferline_echo = 0
 " }}}
 
-": General editor settings {{{
+" Plugin settings }}}
+
+" General editor settings {{{
 set nocompatible
 
 set shiftwidth=4
@@ -104,7 +113,7 @@ let g:gitgutter_preview_win_floating = 1
 
 " }}}
 
-": Colorscheme {{{
+" Colorscheme {{{
 
 "colorscheme default
 "set background=dark
@@ -114,21 +123,54 @@ highlight SignColumn ctermbg=0
 
 " }}}
 
-": Keybidings {{{
+" Keybidings {{{
+
+nmap <C-Up> <C-y>
+nmap <C-Down> <C-e>
 
 nmap <F3> :NERDTreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
-nmap <A-b> :BufMRUNext<CR>
-nmap <A-B> :BufMRUPrev<CR>
+nmap <A-Up> :BufMRUNext<CR>
+nmap <A-Down> :BufMRUPrev<CR>
 
-nmap <A-right> :tabnext<CR>
-nmap <A-left> :tabprevious<CR>
+nmap <A-Right> :tabnext<CR>
+nmap <A-Left> :tabprevious<CR>
 
 map <Leader>cd :cd %:p:h<CR>
 
-noremap <Leader>/ :Commentary<CR>
+" YCM keybindings {{{
 
-" }}}
+" GoTo
+nnoremap <F12> :YcmCompleter GoToDefinition<CR>
+nnoremap <S-F12> :YcmCompleter GoToType<CR>
+
+nnoremap <F11> :YcmCompleter GoToReference<CR>
+
+nnoremap <F10> :YcmCompleter GoToImplementation<CR>
+nnoremap <S-F10> :YcmCompleter GoToImplementation<CR>
+
+nnoremap <Leader>gdd :YcmCompleter GoToDefinition<CR>
+nnoremap <Leader>gde :YcmCompleter GoToDeclaration<CR>
+nnoremap <Leader>gtt :YcmCompleter GoTo<CR>
+nnoremap <Leader>gti :YcmCompleter GoToImprecise<CR>
+nnoremap <Leader>gi :YcmCompleter GoToInclude<CR>
+nnoremap <Leader>gr :YcmCompleter GoToReference<CR>
+nnoremap <Leader>gT :YcmCompleter GoToType<CR>
+
+" Semantic info
+nnoremap <Leader>t :YcmCompleter GetTypeImprecise<CR>
+nnoremap <Leader>T :YcmCompleter GetType<CR>
+nnoremap <Leader>doc :YcmCompleter GetDoc<CR>
+nnoremap <Leader>Doc :YcmCompleter GetDoc<CR>
+
+" Refactoring
+nnoremap <Leader>r :YcmCompleter RefactorRename 
+noremap <Leader>ft :YcmCompleter Format<CR>
+nnoremap <A-CR> :YcmCompleter FixIt<CR>
+
+" YCM keybindings }}}
+
+" Keybidings }}}
 
 " vim:foldmethod=marker
 
