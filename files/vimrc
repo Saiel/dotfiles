@@ -30,6 +30,7 @@ Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-speeddating'
+Plugin 'tpope/vim-commentary'
 Plugin 'glts/vim-magnum'
 Plugin 'glts/vim-radical'
 
@@ -52,6 +53,7 @@ set nocompatible
 
 set shiftwidth=4
 set softtabstop=4
+set tabstop=4
 set smarttab
 set expandtab
 
@@ -124,6 +126,9 @@ nmap <A-left> :tabprevious<CR>
 
 map <Leader>cd :cd %:p:h<CR>
 
+noremap <Leader>/ :Commentary<CR>
+
 " }}}
 
 " vim:foldmethod=marker
+
