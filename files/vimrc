@@ -34,6 +34,7 @@ Plugin 'tpope/vim-commentary'
 Plugin 'glts/vim-magnum'
 Plugin 'glts/vim-radical'
 Plugin 'ycm-core/YouCompleteMe'
+Plugin 'ap/vim-css-color'
 
 filetype plugin indent on
 
@@ -69,7 +70,6 @@ set expandtab
 set textwidth=88
 
 set wildmenu
-set wildmode=list:longest
 
 set updatetime=0
 
@@ -88,9 +88,6 @@ set autoread
 
 set hidden
 
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
-
 if version >= 700
     set history=64
     set undolevels=128
@@ -108,8 +105,11 @@ set ruler
 set visualbell
 set number
 set signcolumn=yes
+set foldcolumn=2
 let g:gitgutter_sign_modified_removed = '~-'
 let g:gitgutter_preview_win_floating = 1
+
+set fillchars+=vert:│
 
 " }}}
 
@@ -117,9 +117,10 @@ let g:gitgutter_preview_win_floating = 1
 
 "colorscheme default
 "set background=dark
-highlight Folded ctermfg=0
-highlight Folded ctermbg=6
-highlight SignColumn ctermbg=0
+highlight Folded ctermbg=6 ctermfg=0
+highlight SignColumn ctermbg=None
+highlight foldcolumn ctermbg=None ctermfg=2
+highlight VertSplit ctermbg=4 ctermfg=0
 
 " }}}
 
@@ -136,7 +137,27 @@ nmap <A-Down> :BufMRUPrev<CR>
 nmap <A-Right> :tabnext<CR>
 nmap <A-Left> :tabprevious<CR>
 
-map <Leader>cd :cd %:p:h<CR>
+nnoremap <silent> <C-_> :let @/ = ''<CR>
+
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
+
+" Split management {{{
+
+" navigation between splits
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" resizing
+noremap <silent> L :vertical resize +3<CR>
+noremap <silent> H :vertical resize -3<CR>
+noremap <silent> K :resize +3<CR>
+noremap <silent> J :resize -3<CR>
+
+
+" Split management }}}
 
 " YCM keybindings {{{
 
@@ -165,7 +186,7 @@ nnoremap <Leader>Doc :YcmCompleter GetDoc<CR>
 
 " Refactoring
 nnoremap <Leader>r :YcmCompleter RefactorRename 
-noremap <Leader>ft :YcmCompleter Format<CR>
+nnoremap <Leader>ft :YcmCompleter Format<CR>
 nnoremap <A-CR> :YcmCompleter FixIt<CR>
 
 " YCM keybindings }}}
