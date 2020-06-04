@@ -34,6 +34,10 @@ COMPLETION_WAITING_DOTS="true"
 
 # HIST_STAMPS="mm/dd/yyyy"
 
+# }}}
+
+# Plugins {{{
+
 plugins=(git
          ubuntu
          django
@@ -64,7 +68,8 @@ alias kittyconfig="$EDITOR ~/.config/kitty/kitty.conf"
 alias vimconfig="$EDITOR ~/.vimrc"
 alias sshconfig="$EDITOR ~/.ssh/config"
 alias configheader="figlet -f slant"
-alias vim="nvim"
+
+(( $+commands[nvim] )) && alias vim="nvim"
 
 # }}}
 
@@ -78,6 +83,8 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=40
 # }}}
 
 #: Autocompletion {{{
+fpath=($ZSH_CUSTOM/autocompletion $fpath)
+
 autoload -Uz compinit
 compinit
 
@@ -92,8 +99,6 @@ fi
 # }}}
 
 # }}}
-
-source /home/saiel/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # vim:foldmethod=marker
 
