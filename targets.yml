@@ -11,4 +11,6 @@ targets:
   zshrc:
     dir: $HOME
     filename: .zshrc
+  lfrc:
+    dir: $HOME/.config/lf
 
