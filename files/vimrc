@@ -126,29 +126,31 @@ highlight VertSplit ctermbg=4 ctermfg=0
 
 " Keybidings {{{
 
-nmap <C-Up> <C-y>
-nmap <C-Down> <C-e>
+map <C-Up> <C-y>
+map <C-Down> <C-e>
 
-nmap <F3> :NERDTreeToggle<CR>
-nmap <F8> :TagbarToggle<CR>
-nmap <A-Up> :BufMRUNext<CR>
-nmap <A-Down> :BufMRUPrev<CR>
+map <F3> :NERDTreeToggle<CR>
+map <F8> :TagbarToggle<CR>
+map <A-Up> :BufMRUNext<CR>
+map <A-Down> :BufMRUPrev<CR>
 
-nmap <A-Right> :tabnext<CR>
-nmap <A-Left> :tabprevious<CR>
+map <A-Right> :tabnext<CR>
+map <A-Left> :tabprevious<CR>
 
 nnoremap <silent> <C-_> :let @/ = ''<CR>
 
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
+tnoremap <Esc> <C-\><C-n>
+
 " Split management {{{
 
 " navigation between splits
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 " resizing
 noremap <silent> L :vertical resize +3<CR>

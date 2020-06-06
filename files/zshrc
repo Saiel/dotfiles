@@ -58,6 +58,12 @@ export EDITOR=nvim
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
+# function to cd while change directory in lf
+LFCD=~/.config/lf/lfcd.sh
+if [ -f $LFCD ]; then
+    source $LFCD
+fi
+
 # }}}
 
 #: Aliases {{{
@@ -70,6 +76,8 @@ alias sshconfig="$EDITOR ~/.ssh/config"
 alias configheader="figlet -f slant"
 
 (( $+commands[nvim] )) && alias vim="nvim"
+# if lfcd sourced then make it common lf
+(( $+functions[lfcd] )) && alias lf="lfcd"
 
 # }}}
 
