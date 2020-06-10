@@ -48,7 +48,7 @@ filetype plugin indent on
 "let g:airline_solarized_dark_inactive_background = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-autocmd vimenter * AirlineTheme raven
+autocmd vimenter * AirlineTheme ayu_mirage
 
 " Airline settings }}}
 

@@ -40,9 +40,9 @@ COMPLETION_WAITING_DOTS="true"
 
 plugins=(git
          ubuntu
-         django
          pip
          sudo
+         colored-man-pages
          zsh-autosuggestions
 
          zsh-syntax-highlighting # must be last
