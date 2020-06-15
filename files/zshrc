@@ -8,6 +8,11 @@
 #################################################
 
 export PATH=$HOME/Applications:$HOME/.local/bin:$PATH
+export PATH=/usr/local/go/bin:$PATH
+
+export GOPATH=$HOME/projects/go
+export GOBIN=$HOME/Applications/go
+export PATH=$GOBIN:$PATH
 
 #: Zsh settings {{{
 # Path to oh-my-zsh installation.

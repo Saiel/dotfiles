@@ -35,6 +35,7 @@ Plugin 'glts/vim-magnum'
 Plugin 'glts/vim-radical'
 Plugin 'ycm-core/YouCompleteMe'
 Plugin 'ap/vim-css-color'
+Plugin 'fatih/vim-go'
 
 filetype plugin indent on
 
@@ -54,6 +55,10 @@ autocmd vimenter * AirlineTheme ayu_mirage
 
 " Bufferline settigns {{{
 let g:bufferline_echo = 0
+" }}}
+
+" Vim-go settings {{{
+
 " }}}
 
 " Plugin settings }}}
