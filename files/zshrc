@@ -18,7 +18,7 @@ export PATH=$GOBIN:$PATH
 # Path to oh-my-zsh installation.
 export ZSH="/home/saiel/.oh-my-zsh"
 
-ZSH_THEME="nt9"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 CASE_SENSITIVE="false"
 
@@ -47,7 +47,7 @@ plugins=(git
          ubuntu
          pip
          sudo
-         colored-man-pages
+         # colored-man-pages
          zsh-autosuggestions
 
          zsh-syntax-highlighting # must be last
@@ -79,6 +79,7 @@ alias kittyconfig="$EDITOR ~/.config/kitty/kitty.conf"
 alias vimconfig="$EDITOR ~/.vimrc"
 alias sshconfig="$EDITOR ~/.ssh/config"
 alias configheader="figlet -f slant"
+# alias n="nnn"
 
 (( $+commands[nvim] )) && alias vim="nvim"
 # if lfcd sourced then make it common lf
@@ -113,172 +114,217 @@ fi
 
 # }}}
 
-# Icons for lf {{{
+#: nnn settings {{{
 
-export LF_ICONS="\
-tw=:\
-st=:\
-ow=:\
-dt=:\
-di=:\
-fi=:\
-ln=:\
-or=:\
-ex=:\
-*.c=:\
-*.cc=:\
-*.clj=:\
-*.coffee=:\
-*.cpp=:\
-*.css=:\
-*.d=:\
-*.dart=:\
-*.erl=:\
-*.exs=:\
-*.fs=:\
-*.go=:\
-*.h=:\
-*.hh=:\
-*.hpp=:\
-*.hs=:\
-*.html=:\
-*.java=:\
-*.jl=:\
-*.js=:\
-*.json=:\
-*.lua=:\
-*.md=:\
-*.php=:\
-*.pl=:\
-*.pro=:\
-*.py=:\
-*.rb=:\
-*.rs=:\
-*.scala=:\
-*.ts=:\
-*.vim=:\
-*.cmd=:\
-*.ps1=:\
-*.sh=:\
-*.bash=:\
-*.zsh=:\
-*.fish=:\
-*.tar=:\
-*.tgz=:\
-*.arc=:\
-*.arj=:\
-*.taz=:\
-*.lha=:\
-*.lz4=:\
-*.lzh=:\
-*.lzma=:\
-*.tlz=:\
-*.txz=:\
-*.tzo=:\
-*.t7z=:\
-*.zip=:\
-*.z=:\
-*.dz=:\
-*.gz=:\
-*.lrz=:\
-*.lz=:\
-*.lzo=:\
-*.xz=:\
-*.zst=:\
-*.tzst=:\
-*.bz2=:\
-*.bz=:\
-*.tbz=:\
-*.tbz2=:\
-*.tz=:\
-*.deb=:\
-*.rpm=:\
-*.jar=:\
-*.war=:\
-*.ear=:\
-*.sar=:\
-*.rar=:\
-*.alz=:\
-*.ace=:\
-*.zoo=:\
-*.cpio=:\
-*.7z=:\
-*.rz=:\
-*.cab=:\
-*.wim=:\
-*.swm=:\
-*.dwm=:\
-*.esd=:\
-*.jpg=:\
-*.jpeg=:\
-*.mjpg=:\
-*.mjpeg=:\
-*.gif=:\
-*.bmp=:\
-*.pbm=:\
-*.pgm=:\
-*.ppm=:\
-*.tga=:\
-*.xbm=:\
-*.xpm=:\
-*.tif=:\
-*.tiff=:\
-*.png=:\
-*.svg=:\
-*.svgz=:\
-*.mng=:\
-*.pcx=:\
-*.mov=:\
-*.mpg=:\
-*.mpeg=:\
-*.m2v=:\
-*.mkv=:\
-*.webm=:\
-*.ogm=:\
-*.mp4=:\
-*.m4v=:\
-*.mp4v=:\
-*.vob=:\
-*.qt=:\
-*.nuv=:\
-*.wmv=:\
-*.asf=:\
-*.rm=:\
-*.rmvb=:\
-*.flc=:\
-*.avi=:\
-*.fli=:\
-*.flv=:\
-*.gl=:\
-*.dl=:\
-*.xcf=:\
-*.xwd=:\
-*.yuv=:\
-*.cgm=:\
-*.emf=:\
-*.ogv=:\
-*.ogx=:\
-*.aac=:\
-*.au=:\
-*.flac=:\
-*.m4a=:\
-*.mid=:\
-*.midi=:\
-*.mka=:\
-*.mp3=:\
-*.mpc=:\
-*.ogg=:\
-*.ra=:\
-*.wav=:\
-*.oga=:\
-*.opus=:\
-*.spx=:\
-*.xspf=:\
-*.pdf=:\
-*.nix=:\
-"
+NNN_OPTS="ore"
+NNN_TRASH=1
+NNN_FIFO=/tmp/nnn.fifo
+
+# NNNCD=$HOME/.config/nnn/plugins/quitcd.bash_zsh
+# if [ -f NNNCD ]; then
+#     source $NNNCD
+# fi
+
+#: n {{{
+
+n ()
+{
+    # Block nesting of nnn in subshells
+    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
+    # To cd on quit only on ^G, remove the "export" as in:
+    #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    # NOTE: NNN_TMPFILE is fixed, should not be modified
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+    # stty start undef
+    # stty stop undef
+    # stty lwrap undef
+    # stty lnext undef
+
+    nnn "$@"
+
+    if [ -f "$NNN_TMPFILE" ]; then
+        . "$NNN_TMPFILE"
+        rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}
 
 # }}}
+
+# }}}
+
+# # Icons for lf {{{
+
+# export LF_ICONS="\
+# tw=:\
+# st=:\
+# ow=:\
+# dt=:\
+# di=:\
+# fi=:\
+# ln=:\
+# or=:\
+# ex=:\
+# *.c=:\
+# *.cc=:\
+# *.clj=:\
+# *.coffee=:\
+# *.cpp=:\
+# *.css=:\
+# *.d=:\
+# *.dart=:\
+# *.erl=:\
+# *.exs=:\
+# *.fs=:\
+# *.go=:\
+# *.h=:\
+# *.hh=:\
+# *.hpp=:\
+# *.hs=:\
+# *.html=:\
+# *.java=:\
+# *.jl=:\
+# *.js=:\
+# *.json=:\
+# *.lua=:\
+# *.md=:\
+# *.php=:\
+# *.pl=:\
+# *.pro=:\
+# *.py=:\
+# *.rb=:\
+# *.rs=:\
+# *.scala=:\
+# *.ts=:\
+# *.vim=:\
+# *.cmd=:\
+# *.ps1=:\
+# *.sh=:\
+# *.bash=:\
+# *.zsh=:\
+# *.fish=:\
+# *.tar=:\
+# *.tgz=:\
+# *.arc=:\
+# *.arj=:\
+# *.taz=:\
+# *.lha=:\
+# *.lz4=:\
+# *.lzh=:\
+# *.lzma=:\
+# *.tlz=:\
+# *.txz=:\
+# *.tzo=:\
+# *.t7z=:\
+# *.zip=:\
+# *.z=:\
+# *.dz=:\
+# *.gz=:\
+# *.lrz=:\
+# *.lz=:\
+# *.lzo=:\
+# *.xz=:\
+# *.zst=:\
+# *.tzst=:\
+# *.bz2=:\
+# *.bz=:\
+# *.tbz=:\
+# *.tbz2=:\
+# *.tz=:\
+# *.deb=:\
+# *.rpm=:\
+# *.jar=:\
+# *.war=:\
+# *.ear=:\
+# *.sar=:\
+# *.rar=:\
+# *.alz=:\
+# *.ace=:\
+# *.zoo=:\
+# *.cpio=:\
+# *.7z=:\
+# *.rz=:\
+# *.cab=:\
+# *.wim=:\
+# *.swm=:\
+# *.dwm=:\
+# *.esd=:\
+# *.jpg=:\
+# *.jpeg=:\
+# *.mjpg=:\
+# *.mjpeg=:\
+# *.gif=:\
+# *.bmp=:\
+# *.pbm=:\
+# *.pgm=:\
+# *.ppm=:\
+# *.tga=:\
+# *.xbm=:\
+# *.xpm=:\
+# *.tif=:\
+# *.tiff=:\
+# *.png=:\
+# *.svg=:\
+# *.svgz=:\
+# *.mng=:\
+# *.pcx=:\
+# *.mov=:\
+# *.mpg=:\
+# *.mpeg=:\
+# *.m2v=:\
+# *.mkv=:\
+# *.webm=:\
+# *.ogm=:\
+# *.mp4=:\
+# *.m4v=:\
+# *.mp4v=:\
+# *.vob=:\
+# *.qt=:\
+# *.nuv=:\
+# *.wmv=:\
+# *.asf=:\
+# *.rm=:\
+# *.rmvb=:\
+# *.flc=:\
+# *.avi=:\
+# *.fli=:\
+# *.flv=:\
+# *.gl=:\
+# *.dl=:\
+# *.xcf=:\
+# *.xwd=:\
+# *.yuv=:\
+# *.cgm=:\
+# *.emf=:\
+# *.ogv=:\
+# *.ogx=:\
+# *.aac=:\
+# *.au=:\
+# *.flac=:\
+# *.m4a=:\
+# *.mid=:\
+# *.midi=:\
+# *.mka=:\
+# *.mp3=:\
+# *.mpc=:\
+# *.ogg=:\
+# *.ra=:\
+# *.wav=:\
+# *.oga=:\
+# *.opus=:\
+# *.spx=:\
+# *.xspf=:\
+# *.pdf=:\
+# *.nix=:\
+# "
+
+# # }}}
 
 # vim:foldmethod=marker
 

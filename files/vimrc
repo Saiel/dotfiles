@@ -34,8 +34,12 @@ Plugin 'tpope/vim-commentary'
 Plugin 'glts/vim-magnum'
 Plugin 'glts/vim-radical'
 Plugin 'ycm-core/YouCompleteMe'
-Plugin 'ap/vim-css-color'
+" Plugin 'ap/vim-css-color'
+Plugin 'RRethy/vim-hexokinase'
 Plugin 'fatih/vim-go'
+Plugin 'dpretet/vim-leader-mapper'
+Plugin 'vim-scripts/dbext.vim'
+Plugin 'lifepillar/pgsql.vim'
 
 filetype plugin indent on
 
@@ -43,23 +47,50 @@ filetype plugin indent on
 
 " Plugin settings {{{
 
+let g:ycm_confirm_extra_conf = 0
+
 " Airline settings {{{
 
 "let g:airline_solarized_bg = 'dark'
 "let g:airline_solarized_dark_inactive_background = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-autocmd vimenter * AirlineTheme ayu_mirage
+let g:airline_theme = 'ayu_mirage'
 
 " Airline settings }}}
 
 " Bufferline settigns {{{
+
 let g:bufferline_echo = 0
+
 " }}}
 
 " Vim-go settings {{{
 
 " }}}
+
+" Leader mapper menu {{{
+
+let g:leaderMapperWidth = 60
+
+let splitMenu = {'name': 'Split Menu',
+            \'V': [':vsplit',       'Split window vertically'],
+            \'H': [':split',        'Split window horizontally'],
+            \'j': ['<C-w><C-j>',    'Select window below'],
+            \'k': ['<C-w><C-k>',    'Select window above'],
+            \'h': ['<C-w><C-h>',    'Select window left'],
+            \'l': ['<C-w><C-l>',    'Select window right'],
+            \}
+
+let g:leaderMenu = {'name': 'Global Menu',
+            \'s': [splitMenu,       'Split menu'],
+            \'d': [':bd',           'Colse buffer'],
+            \'w': [':w',            'Write buffer'],
+            \'Q': [':q',            'Close window'],
+            \'q': [':wq',           'Write and close window'],
+            \}
+
+" Leader mapper menu }}}
 
 " Plugin settings }}}
 
@@ -182,7 +213,7 @@ nnoremap <Leader>gde :YcmCompleter GoToDeclaration<CR>
 nnoremap <Leader>gtt :YcmCompleter GoTo<CR>
 nnoremap <Leader>gti :YcmCompleter GoToImprecise<CR>
 nnoremap <Leader>gi :YcmCompleter GoToInclude<CR>
-nnoremap <Leader>gr :YcmCompleter GoToReference<CR>
+nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
 nnoremap <Leader>gT :YcmCompleter GoToType<CR>
 
 " Semantic info
@@ -192,11 +223,20 @@ nnoremap <Leader>doc :YcmCompleter GetDoc<CR>
 nnoremap <Leader>Doc :YcmCompleter GetDoc<CR>
 
 " Refactoring
-nnoremap <Leader>r :YcmCompleter RefactorRename 
+nnoremap <Leader>r :YcmCompleter RefactorRename
 nnoremap <Leader>ft :YcmCompleter Format<CR>
 nnoremap <A-CR> :YcmCompleter FixIt<CR>
 
 " YCM keybindings }}}
+
+" Leader mapper menu {{{
+
+nnoremap <Space> <Nop>
+
+nnoremap <silent> <Space> :LeaderMapper "<Space>"<CR>
+vnoremap <silent> <Space> :LeaderMapper "<Space>"<CR>
+
+" }}}
 
 " Keybidings }}}
 
