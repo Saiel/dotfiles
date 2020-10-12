@@ -1,0 +1,9 @@
+/* do not delete this line */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+@import url("newTab.css") screen;
+
+/* remove tab toolbar */
+#TabsToolbar { visibility: collapse !important; }
+
+

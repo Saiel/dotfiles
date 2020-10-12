@@ -1,0 +1,14 @@
+@-moz-document url("about:newtab") {
+    /* body.activity-stream {
+        --newtab-background-color:          #080b21 !important;
+        --newtab-icon-tertiary-color:       #737373 !important;
+        --newtab-text-primary-color:        #FFF    !important;
+        --newtab-topsites-background-color: #FFF0   !important;
+        --newtab-text-secondary-color:      #FFF0   !important;
+        --newtab-card-active-outline-color: #bd93f9 !important;
+
+    } */
+    .search-wrapper {
+        visibility: hidden !important;
+    }
+}
