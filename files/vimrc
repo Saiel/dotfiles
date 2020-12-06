@@ -244,38 +244,6 @@ noremap <silent> J :resize -3<CR>
 
 " Split management }}}
 
-" YCM keybindings {{{
-
-" GoTo
-nnoremap <F12> :YcmCompleter GoToDefinition<CR>
-nnoremap <S-F12> :YcmCompleter GoToType<CR>
-
-nnoremap <F11> :YcmCompleter GoToReference<CR>
-
-nnoremap <F10> :YcmCompleter GoToImplementation<CR>
-nnoremap <S-F10> :YcmCompleter GoToImplementation<CR>
-
-nnoremap <Leader>gdd :YcmCompleter GoToDefinition<CR>
-nnoremap <Leader>gde :YcmCompleter GoToDeclaration<CR>
-nnoremap <Leader>gtt :YcmCompleter GoTo<CR>
-nnoremap <Leader>gti :YcmCompleter GoToImprecise<CR>
-nnoremap <Leader>gi :YcmCompleter GoToInclude<CR>
-nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
-nnoremap <Leader>gT :YcmCompleter GoToType<CR>
-
-" Semantic info
-nnoremap <Leader>t :YcmCompleter GetTypeImprecise<CR>
-nnoremap <Leader>T :YcmCompleter GetType<CR>
-nnoremap <Leader>doc :YcmCompleter GetDoc<CR>
-nnoremap <Leader>Doc :YcmCompleter GetDoc<CR>
-
-" Refactoring
-nnoremap <Leader>r :YcmCompleter RefactorRename
-nnoremap <Leader>ft :YcmCompleter Format<CR>
-nnoremap <A-CR> :YcmCompleter FixIt<CR>
-
-" YCM keybindings }}}
-
 " Coc.nvim keybindings {{{
 
 " TAB completion {{{
