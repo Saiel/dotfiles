@@ -14,32 +14,46 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-Plugin 'vim-airline/vim-airline'
+" Vundle itself
+Plugin 'VundleVim/vundle'
+
+" Fancy top and bottom lines
+Plugin 'vim-airline/vim-airline'    " Bottom status line
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'preservim/nerdtree'
-Plugin 'majutsushi/tagbar'
+Plugin 'mkitt/tabline.vim'          " Top tab line
+Plugin 'bling/vim-bufferline'       " Buffer list in status line
+
+" Side windows
+Plugin 'majutsushi/tagbar'          " Tags for file semantic structure
+Plugin 'preservim/nerdtree'         " Classic file manager
+
+" Inline notifiers
+Plugin 'airblade/vim-gitgutter'     " Git status
+Plugin 'RRethy/vim-hexokinase'      " Colors
+
+" Syntax plugins
+Plugin 'neoclide/coc.nvim'          " VSCode intellisense
 Plugin 'leafgarland/typescript-vim'
-Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'bling/vim-bufferline'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'gcmt/taboo.vim'
-Plugin 'mildred/vim-bufmru'
-Plugin 'mkitt/tabline.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-speeddating'
-Plugin 'tpope/vim-commentary'
-Plugin 'glts/vim-magnum'
-Plugin 'glts/vim-radical'
-Plugin 'ycm-core/YouCompleteMe'
-" Plugin 'ap/vim-css-color'
-Plugin 'RRethy/vim-hexokinase'
-Plugin 'fatih/vim-go'
-Plugin 'dpretet/vim-leader-mapper'
-Plugin 'vim-scripts/dbext.vim'
 Plugin 'lifepillar/pgsql.vim'
+" Plugin 'KeitaNakamura/highlighter.nvim'
+
+" Commands and shortcuts
+Plugin 'dpretet/vim-leader-mapper'  " Bindable menu
+Plugin 'fatih/vim-go'               " In-vim commands for golang
+Plugin 'godlygeek/tabular'          " Aligning whatever
+Plugin 'gcmt/taboo.vim'             " Tabs naming (currently don't know which way to use)
+Plugin 'mileszs/ack.vim'            " In-vim ack search
+Plugin 'tpope/vim-surround'         " HTML/XML tags and brackets helper
+Plugin 'tpope/vim-speeddating'      " Dates master editing (Could be useful some time)
+Plugin 'tpope/vim-commentary'       " Commentaries toggling
+Plugin 'glts/vim-radical'           " Coverting between number representations
+Plugin 'vim-scripts/dbext.vim'      " Powerful SQL/Databases helper
+
+" Others
+Plugin 'fneu/breezy'                " Termgui colorscheme
+Plugin 'tpope/vim-repeat'           " Repeat list library
+Plugin 'glts/vim-magnum'            " Integer library
 
 filetype plugin indent on
 
@@ -47,15 +61,15 @@ filetype plugin indent on
 
 " Plugin settings {{{
 
-let g:ycm_confirm_extra_conf = 0
-
 " Airline settings {{{
 
 "let g:airline_solarized_bg = 'dark'
 "let g:airline_solarized_dark_inactive_background = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme = 'ayu_mirage'
+let g:airline#extensions#coc#enabled = 1
+" let g:airline_theme = 'ayu_mirage'
+let g:airline_theme = 'breezy'
 
 " Airline settings }}}
 
@@ -92,6 +106,23 @@ let g:leaderMenu = {'name': 'Global Menu',
 
 " Leader mapper menu }}}
 
+" YCM {{{
+
+let g:ycm_clangd_args = [ '--header-insertion=never' ]
+
+" }}}
+
+" Coc.nvim {{{
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+let g:coc_global_extensions = [
+            \'coc-clangd', 'coc-spell-checker', 'coc-yaml',
+            \'coc-stylelint', 'coc-sh', 'coc-python', 'coc-json',
+            \'coc-html', 'coc-cmake', 'coc-lua', 'coc-go', 'coc-vimlsp'
+            \]
+
+" Coc.nvim }}}
+
 " Plugin settings }}}
 
 " General editor settings {{{
@@ -107,7 +138,7 @@ set textwidth=88
 
 set wildmenu
 
-set updatetime=0
+set updatetime=100
 
 set ignorecase
 set smartcase
@@ -124,6 +155,11 @@ set autoread
 
 set hidden
 
+set scrolljump=-30
+set scrolloff=10
+
+set shortmess+=c
+
 if version >= 700
     set history=64
     set undolevels=128
@@ -139,9 +175,10 @@ endif
 
 set ruler
 set visualbell
-set number
+set number relativenumber
 set signcolumn=yes
 set foldcolumn=2
+set cmdheight=2
 let g:gitgutter_sign_modified_removed = '~-'
 let g:gitgutter_preview_win_floating = 1
 
@@ -153,25 +190,33 @@ set fillchars+=vert:│
 
 "colorscheme default
 "set background=dark
+
+set termguicolors
+colorscheme breezy
+set background=light
 highlight Folded ctermbg=6 ctermfg=0
 highlight SignColumn ctermbg=None
 highlight foldcolumn ctermbg=None ctermfg=2
 highlight VertSplit ctermbg=4 ctermfg=0
 
+let python_highlight_all=1
+
 " }}}
 
-" Keybidings {{{
+" Keybindings {{{
 
-map <C-Up> <C-y>
-map <C-Down> <C-e>
+" General bindings {{{
 
-map <F3> :NERDTreeToggle<CR>
-map <F8> :TagbarToggle<CR>
-map <A-Up> :BufMRUNext<CR>
-map <A-Down> :BufMRUPrev<CR>
+noremap <C-Up> <C-y>
+noremap <C-Down> <C-e>
 
-map <A-Right> :tabnext<CR>
-map <A-Left> :tabprevious<CR>
+noremap <silent> <F3> :NERDTreeToggle<CR>
+noremap <silent> <F8> :TagbarToggle<CR>
+noremap <silent> <A-Up> :bn<CR>
+noremap <silent> <A-Down> :bp<CR>
+
+noremap <silent> <A-Right> :tabnext<CR>
+noremap <silent> <A-Left> :tabprevious<CR>
 
 nnoremap <silent> <C-_> :let @/ = ''<CR>
 
@@ -179,6 +224,8 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
 tnoremap <Esc> <C-\><C-n>
+
+" General bindings }}}
 
 " Split management {{{
 
@@ -229,16 +276,76 @@ nnoremap <A-CR> :YcmCompleter FixIt<CR>
 
 " YCM keybindings }}}
 
+" Coc.nvim keybindings {{{
+
+" TAB completion {{{
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" }}}
+
+" Show list on ctrl+space {{{
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+" }}}
+
+" GoTo code navigation.
+nmap <silent> <Leader>d <Plug>(coc-definition)
+nmap <silent> <Leader>y <Plug>(coc-type-definition)
+nmap <silent> <Leader>i <Plug>(coc-implementation)
+nmap <silent> <Leader>r <Plug>(coc-references)
+
+" Show documentation
+nnoremap <silent> <Leader>doc :call <SID>show_documentation()<CR>
+
+" Symbol renaming.
+nmap <leader>r <Plug>(coc-rename)
+
+" Formatting selected code.
+nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>f  <Plug>(coc-format-selected)
+
+nmap <A-CR> <Plug>(coc-codeaction)
+
+nmap <leader>a <Plug>(coc-codeaction-selected)
+xmap <leader>a <Plug>(coc-codeaction-selected)
+
+" Coc.nvim setting }}}
+
 " Leader mapper menu {{{
 
 nnoremap <Space> <Nop>
 
-nnoremap <silent> <Space> :LeaderMapper "<Space>"<CR>
-vnoremap <silent> <Space> :LeaderMapper "<Space>"<CR>
+" nnoremap <silent> <Space> :LeaderMapper "<Space>"<CR>
+" vnoremap <silent> <Space> :LeaderMapper "<Space>"<CR>
 
 " }}}
 
-" Keybidings }}}
+" Keybindings }}}
+
+" Functions {{{
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Functions }}}
 
 " vim:foldmethod=marker
 
